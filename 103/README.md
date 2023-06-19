@@ -73,7 +73,3 @@ Broader system architecture may also help support cryptographic agility too. Con
 
 Hopefully by now you have a good idea of the real risk that quantum computing poses, what options exist to manage that risk, and how to start approaching this multi-year challenge. Do let me know if there’s any areas you want to explore further as I may create some deeper dives into specific topics in the future. But for now, good luck on your post-quantum journey, and I’ll see you next time!
 
-
-
-Video Description
-
