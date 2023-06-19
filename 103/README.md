@@ -1,6 +1,10 @@
 # PQC 103 - Strategic considerations for post-quantum crypto migration
 _In the final part of this three-part series we examine the strategic considerations for an effective post-quantum cryptography migration. Whilst the risk of quantum may be low today, migrating is a multi year journey, and there’s some simple steps we can (and should!) start thinking about today to make that transition easier._
 
+**The video version can be found here: https://youtu.be/xAE6vgBsf7s**
+
+## Intro
+
 So far in this series we’ve explored the case for post-quantum cryptography, and seen how we can convert our current quantum-vulnerable apps to bleeding-edge quantum-resistant algorithms using experimental libraries such as LIBOQS. But whilst it may be technically possible to operate post-quantum security today, deployment outside of testlab environments needs some careful consideration and planning.
 
 Hi, I’m Andy, and in this video we’ll be discussing the key considerations for real-world PQC deployment, including the items you should be building into long term roadmaps, and the steps you should start taking today.
