@@ -2,7 +2,7 @@
 
 It’s time to get hands-on with some real post-quantum crypto! In this video we explore the Open Quantum Safe project and browse to some websites running quantum-resistant crypto algorithms using a special build of Chrome. We then see how easy it is to create our own webserver running the Kyber and Dilithium post-quantum algorithms.
 
-To watch the video verson, click here: https://youtu.be/5SN60Ptephs
+**The video version can be found here: https://youtu.be/5SN60Ptephs**
 
 ## Intro
 
