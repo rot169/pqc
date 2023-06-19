@@ -35,7 +35,7 @@ It’s a very different story when it comes to internally-developed applications
 
 Creating a crypto-inventory doesn’t have to involve a load of manual effort. We can use many of our existing systems, or freely-available open-source solutions, to do a lot of the hard work for us.
 
-Take, for example, what key exchange mechanisms are in use in an environment. We already saw in our previous video that we can observe the list of KEMs supported by a client is included in the TLS Client Hello message, and the KEM selected by the server appears in the Server Hello message. So we can use our existing network security monitoring tools to identify and report on these specific parameters. I [created a Zeek script to do exactly that](tls-inventory.zeeek), and here’s the report it produces, showing a list of the TLS servers and clients observed, which KEMs they support – so we can see whether they’re traditional or post-quantum: 
+Take, for example, what key exchange mechanisms are in use in an environment. We already saw in our previous video that we can observe the list of KEMs supported by a client is included in the TLS Client Hello message, and the KEM selected by the server appears in the Server Hello message. So we can use our existing network security monitoring tools to identify and report on these specific parameters. I [created a Zeek script to do exactly that](tls-inventory.zeek), and here’s the report it produces, showing a list of the TLS servers and clients observed, which KEMs they support – so we can see whether they’re traditional or post-quantum: 
 
 ![103-cryptoinv-net-b](https://github.com/rot169/pqc/assets/59445582/b087b282-1c10-4de7-812c-8de75c4110d1)
 
