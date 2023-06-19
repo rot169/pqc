@@ -15,13 +15,19 @@ Let’s get some terminology out of the way first, starting with Quantum Physics
 
 ## Quantum Computing
 
-And that weirdness can be harnessed to power Quantum Computers. Whereas our classical electronic computers use digital bits to represent data and perform calculations, with each bit having a value of either one or zero, quantum computers use ‘qbits’ which can exist in a super-position of BOTH one and zero at the same time – just like Schrodinger’s famous cat that’s both dead and alive at the same time. And if that’s not weird enough, qbits can be entangled with eachother, linking their states together at the quantum level. These properties allow quantum computers to perform some types of calculations far quicker than traditional computers. And the key word there is SOME – quantum computers are programmed in a vastly different way to traditional computers, and not all computations can be re-written in a format which can actually take advantage of the power of quantum computing.
+And that weirdness can be harnessed to power Quantum Computers. Whereas our classical electronic computers use digital bits to represent data and perform calculations, with each bit having a value of either one or zero, quantum computers use ‘qbits’ which can exist in a super-position of BOTH one and zero at the same time – just like Schrodinger’s famous cat that’s both dead and alive at the same time.
+
+![image](https://github.com/rot169/pqc/assets/59445582/71c2f0c4-1d8f-412e-8fcb-41d00a2781d1)
+
+And if that’s not weird enough, qbits can be entangled with eachother, linking their states together at the quantum level. These properties allow quantum computers to perform some types of calculations far quicker than traditional computers. And the key word there is SOME – quantum computers are programmed in a vastly different way to traditional computers, and not all computations can be re-written in a format which can actually take advantage of the power of quantum computing.
 
 ## Cracking Crypto with Quantum Computers
 
 One of the computations that CAN be re-written for quantum computers is determining the prime factors of a given number. The specific quantum algorithm for this is known as Shor’s algorithm, created by Peter Shor back in 1994. Now if you’ve spent any time looking at cryptography before, you’ll recognise prime numbers as being a fundamental aspect of some public key cryptosystems such as RSA. The fact that that classical computers cannot calculate prime factors in an efficient way is exactly what makes RSA cryptographically strong. But this strength could be shattered by a quantum computer which can calculate prime factors exponentially faster. And it’s not just RSA that’s affected; our other main asymmetric key crypto system, Elliptic Curve Cryptography, is similarly severely broken by Shor’s algorithm.
 
 Symmetric cryptosystems such as AES are at some degree of risk, with current quantum algorithms such as Grover’s algorithm able to cut the time to crack them quadratically, however this doesn’t have material impact on practical security as any loss can be countered by simply increasing the key length. For example, AES-128 is designed to provide 128 bits of security; or in other words, an attacker must perform 2 to-the-power-of 128 operations to brute-force the encryption. This drops to 2 to-the-power-of 64 with the application of Grovers algorithm. But we can return to 128 bits of security by adopting AES-256 instead.
+
+![image](https://github.com/rot169/pqc/assets/59445582/2375d1ac-4bc1-4c05-b42c-64cd364212d8)
 
 So it’s really just our asymmetric crypto systems – RSA and ECC – that we need to worry about. But that’s still a really big deal. Afterall, asymmetric crypto plays a critical role in not only protecting the symmetric keys we use for most encryption operations, but also in verifying the authenticity of websites and user authentication too.
 
@@ -47,15 +53,17 @@ So despite sounding cool, neither Quantum Random Number Generation nor Quantum K
 
 But we don’t NEED to use quantum-powered crypto to safeguard ourselves from the threat of quantum computing. Remember, a cryptosystem is only at risk if it’s based on a mathematical problem that a quantum computer has an efficient algorithm for solving. What if we could find a cryptosystem that could run on our existing classical computers, and is based on a mathematical problem that CAN’T be easily solved by a quantum computer?
 
+![image](https://github.com/rot169/pqc/assets/59445582/0bac7347-5fa4-4d44-8a42-85b905e57f9f)
+
 Cryptographers have been aware of the quantum threat to our current cryptosystems for many years and have been working on many such alternatives. NIST, the US National Institute for Standards & Technology have been running a selection competition for quantum-resistant algorithms since 2016, and in July 2022 announced the first four algorithms that have proven themselves to be sufficiently robust, practical and performant, and therefore will be enshrined as standards.
 
-The **CRYSTALS-Kyber** algorithm has been selected to provide public-key encryption and key-exchange.
+* The **CRYSTALS-Kyber** algorithm has been selected to provide public-key encryption and key-exchange.
 
-The associated **CRYSTALS-Dilithium** algorithm has been selected for providing digital signatures.
+* The associated **CRYSTALS-Dilithium** algorithm has been selected for providing digital signatures.
 
-One of the drawbacks of Kyber and Dilithium are the significantly larger key sizes as compared to our current breed of algorithms, so the **Falcon** algorithm was also selected for digital signatures due to its shorter key size, making it a more viable option for embedded systems.
+* One of the drawbacks of Kyber and Dilithium are the significantly larger key sizes as compared to our current breed of algorithms, so the **Falcon** algorithm was also selected for digital signatures due to its shorter key size, making it a more viable option for embedded systems.
 
-All three of these algorithms derive their cryptographic strength from the difficulty of solving lattice-based problems. Despite a lot of research into the topic, there’s no known way to programme a quantum computer to solve these problems significantly quicker than a traditional computer. However there’s a chance that some very smart people in the future might find a way, so NIST elected to standardise a fourth quantum-resistant signature algorithm based on an entirely different mathematical foundation. The **SPHINCS+** algorithm is built upon hash-based calculations.
+* All three of these algorithms derive their cryptographic strength from the difficulty of solving lattice-based problems. Despite a lot of research into the topic, there’s no known way to programme a quantum computer to solve these problems significantly quicker than a traditional computer. However there’s a chance that some very smart people in the future might find a way, so NIST elected to standardise a fourth quantum-resistant signature algorithm based on an entirely different mathematical foundation. The **SPHINCS+** algorithm is built upon hash-based calculations.
 
 That’s not the end of the road for the NIST competition though; several other candidates are still in the running for standardisation in the future, and cryptoanalysis of the selected algorithms will continue for as long as they’re in use. And that’s a really good thing – because shortly after it was passed-through to the final round, a critical flaw was found in the SIKE algorithm which made it easily breakable by a single consumer-grade laptop, let alone a quantum computer! And research has also identified some side-channel attack vectors in Kyber, however these are currently not perceived to be significant.
 
