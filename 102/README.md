@@ -28,13 +28,51 @@ It's... a little underwhelming really. Apart from a warning due to the use of a 
 
 However, we do need to uncover some of that hidden complexity when it comes to creating our own quantum-resistant services, so let’s do that now. For starters, lets quickly recap the several different cryptographic components at play in TLS: the Key Exchange scheme, the Digital Signature used to authenticate the server, and the cipher suite used for the session. Each of these has a different cryptographic configuration which we need to consider as part of our setup.
 
-We first need to create a chain of trust for the certificate used to authenticate our server. Here I’m using the OQS-enabled version of openssl to create a self-signed certificate to act as a certificate authority. Next, we’ll create another key for our web server. In a pre-quantum world we’d choose either an elliptic curve or RSA signature scheme for our certificate, but as we want to be quantum-safe I’m choosing a variant of the Dilithium algorithm. Then finally, sign the server’s certificate with our CA. 
+![image](https://github.com/rot169/pqc/assets/59445582/8a9df444-1912-4444-8e58-af433b2e2cd4)
 
-Next, the Key Exchange scheme. This is defined in the web server configuration, so here I’m extracting the default nginx config file that comes pre-packaged in the OQS nginx docker container so that we can modify it. Pre-quantum we’d use a Diffie-Hellman key exchange either based on RSA or elliptic curves, and this config property would define the specific elliptic curves to accept. In the quantum-resistant world, we repurpose this field to specify our supported key exchange methods here. Whilst we could specify several different options here to allow for the client and server to negotiate a mutually acceptable key exchange mechanism, in this case we’re just specifying one specific variant of the Kyber algorithm. 
+We first need to create a chain of trust for the certificate used to authenticate our server. Here I’m using the OQS-enabled version of openssl to create a self-signed certificate to act as a certificate authority.
+
+```
+mkdir server-pki && cd server-pki
+sudo docker run -v `pwd`:/opt/tmp -it openquantumsafe/curl openssl req -x509 -new -newkey rsa -keyout /opt/tmp/CA.key -out /opt/tmp/CA.crt -nodes -subj "/CN=Andy's Post-Quantum CA" -days 365
+```
+
+Next, we’ll create another key for our web server. In a pre-quantum world we’d choose either an elliptic curve or RSA signature scheme for our certificate, but as we want to be quantum-safe I’m choosing a variant of the Dilithium algorithm.
+
+```
+sudo docker run -v `pwd`:/opt/tmp -it openquantumsafe/curl openssl req -new -newkey dilithium3 -keyout /opt/tmp/server.key -out /opt/tmp/server.csr -nodes -subj "/CN=localhost“-addext "subjectAltName = DNS:localhost"
+```
+
+Then finally, sign the server’s certificate with our CA. 
+
+```
+sudo docker run -v `pwd`:/opt/tmp -it openquantumsafe/curl openssl x509 -req -in /opt/tmp/server.csr -out /opt/tmp/server.crt -CA /opt/tmp/CA.crt -CAkey /opt/tmp/CA.key -CAcreateserial -days 365 -copy_extensions copy
+```
+
+Next, the Key Exchange scheme. This is defined in the web server configuration, so here I’m extracting the default nginx config file that comes pre-packaged in the OQS nginx docker container so that we can modify it.
+
+```
+cd ..
+mkdir server-conf && cd server-conf
+sudo docker run -it openquantumsafe/nginx cat /opt/nginx/nginx-conf/nginx.conf > nginx.conf
+```
+
+Pre-quantum we’d use a Diffie-Hellman key exchange either based on RSA or elliptic curves, and the `ssl_ecdh_curve` config property would define the specific elliptic curves to accept. In the quantum-resistant world, we repurpose this field to specify our supported key exchange methods here. Whilst we could specify several different options here to allow for the client and server to negotiate a mutually acceptable key exchange mechanism, in this case we’re just specifying one specific variant of the Kyber algorithm. 
+
+```
+sudo nano nginx.conf    # Add: ssl_ecdh_curve p256_kyber90s512;
+```
 
 The third part of the cryptographic configuration, the session cipher suite, can also be set in this same config file. Session encryption is based on a symmetric algorithm, and recall from the previous video that our symmetric crypto schemes such as AES are not considered to be at significant threat from being broken by quantum computers. So we don’t include any specific configuration option in order to accept the defaults. 
 
-With all that in place we’re now ready to start up the web server container, being sure to map in the folders containing our crypto keys and config file. We can test it by heading back to Chrome, but we need to first add our test Certificate Authority as a trusted root so as to avoid certificate warnings. With that in place we can navigate to the site – running on localhost port 4433 – and see the default nginx placeholder page appearing like normal. After all that work, again nothing looks any different to browsing with our traditional cryptographic algorithms.
+With all that in place we’re now ready to start up the web server container, being sure to map in the folders containing our crypto keys and config file.
+
+```
+cd ..
+sudo docker run --rm -p 4433:4433 -v `pwd`/server-pki:/opt/nginx/pki -v `pwd`/server-conf:/opt/nginx/nginx-conf openquantumsafe/nginx
+```
+
+We can test it by heading back to Chrome, but we need to first add our test Certificate Authority as a trusted root so as to avoid certificate warnings. With that in place we can navigate to the site – running on localhost port 4433 – and see the default nginx placeholder page appearing like normal. After all that work, again nothing looks any different to browsing with our traditional cryptographic algorithms.
 
 ## PQC Analysis (Wireshark)
 
