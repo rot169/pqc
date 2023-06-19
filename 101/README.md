@@ -1,7 +1,7 @@
 # PQC101 - Demystifying the quantum crypto threat
 Welcome to the first in a series of videos on post quantum cryptography, where we start with a view on the real risk that quantum computing poses today, and an overview of what we as cyber security professionals can do to overcome those risks. We touch on the pros and cons of quantum random number generation, quantum key exchange, and quantum-resistant algorithms selected for standardisation by NIST.
 
-The video version can be found here: https://youtu.be/TLB9YgHNRBI
+**The video version can be found here: https://youtu.be/TLB9YgHNRBI**
 
 ## Intro
 
