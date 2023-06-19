@@ -59,7 +59,10 @@ This is hybrid cryptography.
 
 With hybrid crypto we’re using both a traditional algorithm AND a PQC algorithm. This way the PQC algorithm provides protection from any future quantum-based attack, and the traditional algorithm provides protection from any as-yet-undiscovered weakness in the PQC algorithm.
 
-We’ve actually already seen hybrid crypto in action in the previous video. The eagle-eyed viewer may have spotted something interesting in the specific variants of the Frodo and Kyber algorithms we implemented. The algorithm names are prefixed with ‘p256’. P256 is one of the common curves used in our traditional elliptic curve crypto. The key exchange in our demo here is protected with BOTH ECC (using the curve P256) and PQC crypto (using a variant of Kyber).
+We’ve actually already seen hybrid crypto in action in the previous video. The eagle-eyed viewer may have spotted something interesting in the specific variants of the Frodo and Kyber algorithms we implemented. The algorithm names are prefixed with ‘p256’. P256 is one of the common curves used in our traditional elliptic curve crypto. The key exchange in our demo here is protected with both ECC (using the curve P256) and PQC crypto (using a variant of Kyber).
+
+![image](https://github.com/rot169/pqc/assets/59445582/fe5ce563-9cce-45de-941e-9a5611326bae)
+
 
 Hybrid crypto provides us with the best of both worlds, but encrypting or signing everything TWICE surely has a performance impact, right? Whilst yes that is true, we saw in our demos that it’s not particularly significant. Afterall we only use these algorithms for key exchange and signing; we still use traditional symmetric crypto for the bulk of our encryption operations.
 
@@ -70,6 +73,9 @@ If we don’t feel quite ready to adopt PQC algorithms just yet, any new systems
 In practice this means creating well-architected applications that contain a small number of flexible cryptographic routines that are called from across the app, meaning algorithms can easily be changed in just one or two places rather than necessitating a compete rewrite. Having flexible data structures and data formats can also help.
 
 Broader system architecture may also help support cryptographic agility too. Consider a reverse proxy model for a set of web services that are not quantum safe, however the proxy is. Our PQC crypto is offloaded onto the proxy, providing protection across an untrusted network, with only the final link between the proxy and web services left potentially exposed to a quantum-based attack.
+
+![image](https://github.com/rot169/pqc/assets/59445582/1d4b1eb0-7bcd-4495-853f-221bdc12a531)
+
 
 ## Wrap-up
 
