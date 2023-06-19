@@ -1,4 +1,4 @@
-# Demystifying the quantum crypto threat
+# PQC101 - Demystifying the quantum crypto threat
 The video version can be found here: https://youtu.be/TLB9YgHNRBI
 
 ## Intro
