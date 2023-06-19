@@ -1,7 +1,7 @@
 # Andy's Post Quantum Cryptography repo
 This is a companion repo to my video series on post quantum cryptography. Check out the full playlist here: https://www.youtube.com/playlist?list=PLoEpvlpUwwkaUe1y4UJ41ZooKJmYE2j79
 
-Per-video scripts, comm ands and code:
+Per-video scripts, commands and code:
 
 * [PQC101 - Demystifying the quantum crypto threat](101/README.md)
 
