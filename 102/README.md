@@ -78,6 +78,11 @@ We can test it by heading back to Chrome, but we need to first add our test Cert
 
 So by now you’re probably wanting to see some hard proof that we’ve actually witnessed post-quantum crypto in action here, so let’s fire up Wireshark and pick through some packets. We’ll be using a version from Open Quantum Safe which includes updated packet dissectors which are PQC-aware. In order to capture packets on this system I need to run as root via sudo, so I’m using the `xhost` command here to grant root processes access to my GUI session. With that done we can launch Wireshark from the open quantum safe Docker image with the following command.
 
+```
+xhost +si:localuser:root
+sudo docker run --net=host --privileged --env="DISPLAY" --volume="$HOME/.Xauthority:/root/.Xauthority:rw" openquantumsafe/wireshark
+```
+
 With Wireshark running in the background we can switch over to our OQS Chrome browser and hit the refresh button on the same test.openquantumsafe.org service… and our own PQC-enabled nginx webserver.
 
 Back in Wireshark we can conclude the capture and get digging. First, filtering for only TLS traffic by using the ‘tls’ filter. We can drill-down further to just the first TLS communication associated with test.openquantusafe.net by applying a port-based filter; in this case the particular test service we accessed was on port 6242.
@@ -94,7 +99,11 @@ We can add this property to our packet display through right-clicking, and selec
 
 Ok so we’ve successfully proven that the Key Exchange Mechanism for these connections did indeed use post-quantum algorithms… but that’s only one element of our post-quantum config. What about the digital signature algorithm used to prove the server’s identity? This is stored within the server’s certificate, and is something we can’t carve out of this packet capture as the communication is TLS1.3, and under TLS1.3 the server certificate is encrypted.
 
-We can examine the certificate via Chrome, however. The algorithm should be listed in “Subject Public Key Algorithm” field, but Chrome is only showing a placeholder reference number as this part of Chrome is not yet fully PQC-aware. To properly examine the certificate we must first export it. We can then use our PQC-aware version of openssl to decode it with the following command. Here we can see that the signature algorithm for the particular openquantumsafe test server we accessed earlier is indeed dilithium3.
+We can examine the certificate via Chrome, however. The algorithm should be listed in “Subject Public Key Algorithm” field, but Chrome is only showing a placeholder reference number as this part of Chrome is not yet fully PQC-aware. To properly examine the certificate we must first export it. We can then use our PQC-aware version of openssl to decode it with the following command.
+```
+sudo docker run -v `pwd`:/opt/tmp -it openquantumsafe/curl openssl x509 -in /opt/tmp/test.openquantumsafe.org.crt -text 
+```
+Here we can see that the signature algorithm for the particular openquantumsafe test server we accessed earlier is indeed dilithium3.
 
 ## Wrap-up
 
