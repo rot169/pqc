@@ -2,6 +2,7 @@
 _Welcome to the first in a series of videos on post quantum cryptography, where we start with a view on the real risk that quantum computing poses today, and an overview of what we as cyber security professionals can do to overcome those risks. We touch on the pros and cons of quantum random number generation, quantum key exchange, and quantum-resistant algorithms selected for standardisation by NIST._
 
 **The video version can be found here: https://youtu.be/TLB9YgHNRBI**
+
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/TLB9YgHNRBI/0.jpg)](https://www.youtube.com/watch?v=TLB9YgHNRBI)
 
 ## Intro
