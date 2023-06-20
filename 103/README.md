@@ -3,6 +3,8 @@ _In the final part of this three-part series we examine the strategic considerat
 
 **The video version can be found here: https://youtu.be/xAE6vgBsf7s**
 
+[![Click to play](https://img.youtube.com/vi/xAE6vgBsf7s/0.jpg)](https://www.youtube.com/watch?v=xAE6vgBsf7s)
+
 ## Intro
 
 So far in this series we’ve explored the case for post-quantum cryptography, and seen how we can convert our current quantum-vulnerable apps to bleeding-edge quantum-resistant algorithms using experimental libraries such as LIBOQS. But whilst it may be technically possible to operate post-quantum security today, deployment outside of testlab environments needs some careful consideration and planning.
@@ -66,7 +68,7 @@ We’ve actually already seen hybrid crypto in action in the previous video. The
 ![image](https://github.com/rot169/pqc/assets/59445582/fe5ce563-9cce-45de-941e-9a5611326bae)
 
 
-Hybrid crypto provides us with the best of both worlds, but encrypting or signing everything TWICE surely has a performance impact, right? Whilst yes that is true, we saw in our demos that it’s not particularly significant. Afterall we only use these algorithms for key exchange and signing; we still use traditional symmetric crypto for the bulk of our encryption operations.
+Hybrid crypto provides us with the best of both worlds, but encrypting or signing everything **twice** surely has a performance impact, right? Whilst yes that is true, we saw in our demos that it’s not particularly significant. Afterall we only use these algorithms for key exchange and signing; we still use traditional symmetric crypto for the bulk of our encryption operations.
 
 ## Cryptographic agility
 
