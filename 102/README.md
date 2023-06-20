@@ -4,6 +4,8 @@ _It’s time to get hands-on with some real post-quantum crypto! In this video w
 
 **The video version can be found here: https://youtu.be/5SN60Ptephs**
 
+[![Click to play](https://img.youtube.com/vi/5SN60Ptephs/0.jpg)](https://www.youtube.com/watch?v=5SN60Ptephs)
+
 ## Intro
 
 In the first video in this series we examined the threat that quantum computers pose to the encryption methods we used today, and took a took a brief look at some of the new cryptographic algorithms that could help keep us secure in the age of quantum computing. But how easy is it to apply them in practice? Hi, I’m Andy, and in this video I’ll be demonstrating some real-world post-quantum crypto, and showing how you too can configure it on your own services.
